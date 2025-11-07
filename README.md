@@ -36,6 +36,7 @@ docker push lenow/mlflow-server:v... -t lenow/mlflow-server:latest
 ### Инициализатор базы
 
 ```bash
-docker build -t lenow/sql-initer:v... -t lenow/sql-initer:latest ./sql_initer
-docker push lenow/sql-initer:v... -t lenow/sql-initer:latest
+docker build -t lenow/sql-initer:v... -t lenow/sql-initer:latest ./sql_initer \
+&& docker push lenow/sql-initer:v... \
+&& docker push lenow/sql-initer:latest
 ```

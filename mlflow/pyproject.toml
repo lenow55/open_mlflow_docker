@@ -5,10 +5,7 @@ description = ""
 authors = [{ name = "Ilia Novikov", email = "nov.ilucha@yandex.ru" }]
 readme = "README.md"
 requires-python = "^3.11"
-dependencies = [
-  "mlflow[databricks] (>=3.5.0rc0,<3.6.0)",
-  "psycopg2-binary (>=2.9.0,<2.10.0)",
-]
+dependencies = ["mlflow (==3.5.1)", "psycopg2-binary (>=2.9.10,<2.9.12)"]
 
 [tool.poetry]
 package-mode = false
