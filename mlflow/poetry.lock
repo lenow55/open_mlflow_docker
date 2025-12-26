@@ -784,7 +784,7 @@ description = "Databricks Connect Client"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version == \"3.11\" or python_version >= \"3.13\""
+markers = "python_version >= \"3.13\" or python_version == \"3.11\""
 files = [
     {file = "databricks_connect-14.3.2-py2.py3-none-any.whl", hash = "sha256:b607c2f00823df7568ad166fdd78df50dde8c0b3877dc649849bd970483dbf7f"},
 ]
@@ -1311,8 +1311,8 @@ files = [
 google-auth = ">=2.14.1,<3.0.0"
 googleapis-common-protos = ">=1.56.2,<2.0.0"
 proto-plus = [
-    {version = ">=1.22.3,<2.0.0"},
     {version = ">=1.25.0,<2.0.0", markers = "python_version >= \"3.13\""},
+    {version = ">=1.22.3,<2.0.0", markers = "python_version < \"3.13\""},
 ]
 protobuf = ">=3.19.5,<3.20.0 || >3.20.0,<3.20.1 || >3.20.1,<4.21.0 || >4.21.0,<4.21.1 || >4.21.1,<4.21.2 || >4.21.2,<4.21.3 || >4.21.3,<4.21.4 || >4.21.4,<4.21.5 || >4.21.5,<7.0.0"
 requests = ">=2.18.0,<3.0.0"
@@ -1533,7 +1533,7 @@ description = "Lightweight in-process concurrent programming"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "python_version < \"3.14\" and (platform_machine == \"aarch64\" or platform_machine == \"ppc64le\" or platform_machine == \"x86_64\" or platform_machine == \"amd64\" or platform_machine == \"AMD64\" or platform_machine == \"win32\" or platform_machine == \"WIN32\")"
+markers = "(platform_machine == \"aarch64\" or platform_machine == \"ppc64le\" or platform_machine == \"x86_64\" or platform_machine == \"amd64\" or platform_machine == \"AMD64\" or platform_machine == \"win32\" or platform_machine == \"WIN32\") and python_version <= \"3.13\""
 files = [
     {file = "greenlet-3.2.2-cp310-cp310-macosx_11_0_universal2.whl", hash = "sha256:c49e9f7c6f625507ed83a7485366b46cbe325717c60837f7244fc99ba16ba9d6"},
     {file = "greenlet-3.2.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c3cc1a3ed00ecfea8932477f729a9f616ad7347a5e55d50929efa50a86cb7be7"},
@@ -1807,6 +1807,22 @@ cli = ["click (==8.*)", "pygments (==2.*)", "rich (>=10,<14)"]
 http2 = ["h2 (>=3,<5)"]
 socks = ["socksio (==1.*)"]
 zstd = ["zstandard (>=0.18.0)"]
+
+[[package]]
+name = "huey"
+version = "2.5.5"
+description = "huey, a little task queue"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "huey-2.5.5-py3-none-any.whl", hash = "sha256:82ac73343248c5d7acec04814f952c61f7793e11fd99d26ed9030137d32f912c"},
+    {file = "huey-2.5.5.tar.gz", hash = "sha256:a39010628a9a1a9e91462f9bf33dc243b006a9f21193026ea47ae18949a12581"},
+]
+
+[package.extras]
+backends = ["redis (>=3.0.0)"]
+redis = ["redis (>=3.0.0)"]
 
 [[package]]
 name = "huggingface-hub"
@@ -2486,14 +2502,14 @@ dev = ["meson-python (>=0.13.1,<0.17.0)", "pybind11 (>=2.13.2,!=2.13.3)", "setup
 
 [[package]]
 name = "mlflow"
-version = "3.5.1"
+version = "3.8.0"
 description = "MLflow is an open source platform for the complete machine learning lifecycle"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "mlflow-3.5.1-py3-none-any.whl", hash = "sha256:ebbf5fef59787161a15f2878f210877a62d54d943ad6cea140621687b2393f85"},
-    {file = "mlflow-3.5.1.tar.gz", hash = "sha256:32630f2aaadeb6dc6ccbde56247a1500518b38d0a7cc12f714be1703b6ee3ea1"},
+    {file = "mlflow-3.8.0-py3-none-any.whl", hash = "sha256:bb2f389a2964dc509a4946d386286258ca1cfe9c74321af66f3d5695569a01a8"},
+    {file = "mlflow-3.8.0.tar.gz", hash = "sha256:429ae0bc8e968ad403f81c6644f47a86b83ff5221ca399b6a13977b634a0c853"},
 ]
 
 [package.dependencies]
@@ -2509,12 +2525,13 @@ Flask-CORS = "<7"
 google-cloud-storage = {version = ">=1.30.0", optional = true, markers = "extra == \"databricks\""}
 graphene = "<4"
 gunicorn = {version = "<24", markers = "platform_system != \"Windows\""}
+huey = ">=2.5.0,<3"
 matplotlib = "<4"
-mlflow-skinny = "3.5.1"
-mlflow-tracing = "3.5.1"
+mlflow-skinny = "3.8.0"
+mlflow-tracing = "3.8.0"
 numpy = "<3"
 pandas = "<3"
-pyarrow = ">=4.0.0,<22"
+pyarrow = ">=4.0.0,<23"
 scikit-learn = "<2"
 scipy = "<2"
 sqlalchemy = ">=1.4.0,<3"
@@ -2526,24 +2543,23 @@ auth = ["Flask-WTF (<2)"]
 databricks = ["azure-storage-file-datalake (>12)", "boto3 (>1)", "botocore", "databricks-agents (>=1.2.0,<2.0)", "google-cloud-storage (>=1.30.0)"]
 extras = ["azureml-core (>=1.2.0)", "boto3", "botocore", "google-cloud-storage (>=1.30.0)", "kubernetes", "prometheus-flask-exporter", "pyarrow", "pysftp", "requests-auth-aws-sigv4", "virtualenv"]
 gateway = ["aiohttp (<4)", "boto3 (>=1.28.56,<2)", "fastapi (<1)", "slowapi (>=0.1.9,<1)", "tiktoken (<1)", "uvicorn[standard] (<1)", "watchfiles (<2)"]
-genai = ["aiohttp (<4)", "boto3 (>=1.28.56,<2)", "fastapi (<1)", "slowapi (>=0.1.9,<1)", "tiktoken (<1)", "uvicorn[standard] (<1)", "watchfiles (<2)"]
+genai = ["aiohttp (<4)", "boto3 (>=1.28.56,<2)", "fastapi (<1)", "litellm (>=1.0.0,<2)", "slowapi (>=0.1.9,<1)", "tiktoken (<1)", "uvicorn[standard] (<1)", "watchfiles (<2)"]
 jfrog = ["mlflow-jfrog-plugin"]
-jobs = ["huey (>=2.5.0,<3)"]
-langchain = ["langchain (>=0.3.3,<=0.3.27)"]
-mcp = ["fastmcp (>=2.0.0,<3)"]
+langchain = ["langchain (>=0.3.12,<=1.1.3)"]
+mcp = ["click (!=8.3.0)", "fastmcp (>=2.0.0,<3)"]
 mlserver = ["mlserver (>=1.2.0,!=1.3.1,<2.0.0)", "mlserver-mlflow (>=1.2.0,!=1.3.1,<2.0.0)"]
 sqlserver = ["mlflow-dbstore"]
 
 [[package]]
 name = "mlflow-skinny"
-version = "3.5.1"
+version = "3.8.0"
 description = "MLflow is an open source platform for the complete machine learning lifecycle"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "mlflow_skinny-3.5.1-py3-none-any.whl", hash = "sha256:e5f96977d21a093a3ffda789bee90070855dbfe1b9d0703c0c3e34d2f8d7fba8"},
-    {file = "mlflow_skinny-3.5.1.tar.gz", hash = "sha256:4358a5489221cdecf53cf045e10df28919dedb9489965434ce3445f7cbabf365"},
+    {file = "mlflow_skinny-3.8.0-py3-none-any.whl", hash = "sha256:9e074b6858ca05b17f2c85eabda2789bf86920d648296d12279d90d0ece74f2b"},
+    {file = "mlflow_skinny-3.8.0.tar.gz", hash = "sha256:cfacafbdc59011ea5d59cbf538b800fb242e27c6eb0afe4df2e8798b6a5a9f0d"},
 ]
 
 [package.dependencies]
@@ -2559,7 +2575,7 @@ opentelemetry-proto = ">=1.9.0,<3"
 opentelemetry-sdk = ">=1.9.0,<3"
 packaging = "<26"
 protobuf = ">=3.12.0,<7"
-pydantic = ">=1.10.8,<3"
+pydantic = ">=2.0.0,<3"
 python-dotenv = ">=0.19.0,<2"
 pyyaml = ">=5.1,<7"
 requests = ">=2.17.3,<3"
@@ -2573,24 +2589,23 @@ auth = ["Flask-WTF (<2)"]
 databricks = ["azure-storage-file-datalake (>12)", "boto3 (>1)", "botocore", "databricks-agents (>=1.2.0,<2.0)", "google-cloud-storage (>=1.30.0)"]
 extras = ["azureml-core (>=1.2.0)", "boto3", "botocore", "google-cloud-storage (>=1.30.0)", "kubernetes", "prometheus-flask-exporter", "pyarrow", "pysftp", "requests-auth-aws-sigv4", "virtualenv"]
 gateway = ["aiohttp (<4)", "boto3 (>=1.28.56,<2)", "fastapi (<1)", "slowapi (>=0.1.9,<1)", "tiktoken (<1)", "uvicorn[standard] (<1)", "watchfiles (<2)"]
-genai = ["aiohttp (<4)", "boto3 (>=1.28.56,<2)", "fastapi (<1)", "slowapi (>=0.1.9,<1)", "tiktoken (<1)", "uvicorn[standard] (<1)", "watchfiles (<2)"]
+genai = ["aiohttp (<4)", "boto3 (>=1.28.56,<2)", "fastapi (<1)", "litellm (>=1.0.0,<2)", "slowapi (>=0.1.9,<1)", "tiktoken (<1)", "uvicorn[standard] (<1)", "watchfiles (<2)"]
 jfrog = ["mlflow-jfrog-plugin"]
-jobs = ["huey (>=2.5.0,<3)"]
-langchain = ["langchain (>=0.3.3,<=0.3.27)"]
-mcp = ["fastmcp (>=2.0.0,<3)"]
+langchain = ["langchain (>=0.3.12,<=1.1.3)"]
+mcp = ["click (!=8.3.0)", "fastmcp (>=2.0.0,<3)"]
 mlserver = ["mlserver (>=1.2.0,!=1.3.1,<2.0.0)", "mlserver-mlflow (>=1.2.0,!=1.3.1,<2.0.0)"]
 sqlserver = ["mlflow-dbstore"]
 
 [[package]]
 name = "mlflow-tracing"
-version = "3.5.1"
+version = "3.8.0"
 description = "MLflow Tracing SDK is an open-source, lightweight Python package that only includes the minimum set of dependencies and functionality to instrument your code/models/agents with MLflow Tracing."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "mlflow_tracing-3.5.1-py3-none-any.whl", hash = "sha256:4fd685347158e0d2c48f5bec3d15ecfc6fadc1dbb48073cb220ded438408fa65"},
-    {file = "mlflow_tracing-3.5.1.tar.gz", hash = "sha256:bca266b1871692ae2ec812ed177cdc108ccef1cb3fb82725a8b959ec98d5fba0"},
+    {file = "mlflow_tracing-3.8.0-py3-none-any.whl", hash = "sha256:eadd46ce6e90bfd65a0b136ec93ae53d267296a27155ad55d7f0be3bc2113c4a"},
+    {file = "mlflow_tracing-3.8.0.tar.gz", hash = "sha256:c014bd5812e4117928a5be91cd024497712966506a428938301a5f9664187092"},
 ]
 
 [package.dependencies]
@@ -2601,7 +2616,7 @@ opentelemetry-proto = ">=1.9.0,<3"
 opentelemetry-sdk = ">=1.9.0,<3"
 packaging = "<26"
 protobuf = ">=3.12.0,<7"
-pydantic = ">=1.10.8,<3"
+pydantic = ">=2.0.0,<3"
 
 [[package]]
 name = "multidict"
@@ -3092,8 +3107,8 @@ files = [
 
 [package.dependencies]
 numpy = [
-    {version = ">=1.23.2", markers = "python_version == \"3.11\""},
     {version = ">=1.26.0", markers = "python_version >= \"3.12\""},
+    {version = ">=1.23.2", markers = "python_version == \"3.11\""},
 ]
 python-dateutil = ">=2.8.2"
 pytz = ">=2020.1"
@@ -3465,7 +3480,7 @@ description = "Enables Python programs to dynamically access arbitrary Java obje
 optional = false
 python-versions = "*"
 groups = ["main"]
-markers = "python_version == \"3.11\" or python_version >= \"3.13\""
+markers = "python_version >= \"3.13\" or python_version == \"3.11\""
 files = [
     {file = "py4j-0.10.9.7-py2.py3-none-any.whl", hash = "sha256:85defdfd2b2376eb3abf5ca6474b51ab7e0de341c75a02f46dc9b5976f5a5c1b"},
     {file = "py4j-0.10.9.7.tar.gz", hash = "sha256:0b6e5315bb3ada5cf62ac651d107bb2ebc02def3dee9d9548e3baac644ea8dbb"},
@@ -5272,4 +5287,4 @@ cffi = ["cffi (>=1.17,<2.0) ; platform_python_implementation != \"PyPy\" and pyt
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "730db855d02e216b0946ce263f93225eaf32eff3483c284c26d106fc42bf60bc"
+content-hash = "289fa65af88ad159a12cbe00d839468b13b285f383a0f8184a01f006d08c6ac6"
