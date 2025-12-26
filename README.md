@@ -30,7 +30,7 @@ open_mlflow_docker пример
 
 ```bash
 docker build -t lenow/mlflow-server:v... -t lenow/mlflow-server:latest ./mlflow \
-&& docker push lenow/mlflow-server:v...
+&& docker push lenow/mlflow-server:v... \
 && docker push lenow/mlflow-server:latest
 ```
 
