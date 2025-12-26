@@ -29,15 +29,11 @@ open_mlflow_docker пример
 ### Сервер mlflow
 
 ```bash
-docker build -t lenow/mlflow-server:v... -t lenow/mlflow-server:latest ./mlflow \
-&& docker push lenow/mlflow-server:v... \
-&& docker push lenow/mlflow-server:latest
+docker build -t lenow/mlflow-server:v... -t lenow/mlflow-server:latest --push ./mlflow
 ```
 
 ### Инициализатор базы
 
 ```bash
-docker build -t lenow/sql-initer:v... -t lenow/sql-initer:latest ./sql_initer \
-&& docker push lenow/sql-initer:v... \
-&& docker push lenow/sql-initer:latest
+docker build -t lenow/sql-initer:v... -t lenow/sql-initer:latest --push ./sql_initer
 ```
